@@ -58,9 +58,14 @@ const PROJECTS = [
   {
     title: "ETF Recommender",
     type: "Data",
-    stack: ["Python", "SQL", "MongoDB"],
+    stack: [
+      "Selenium",
+      "BeautifulSoup",
+      "MongoDB",
+      "GenAI",
+    ],
     impact: "Normalized scraped market data",
-    desc: "Scraped and normalized financial data with Selenium, BeautifulSoup, and Pandas, then used SQL analysis to surface ticker correlations and performance trends.",
+    desc: "Built a full ETF recommendation engine for a Charles Schwab simulation. Scraped 3,000+ ETFs from Finviz and StockAnalysis using Selenium, BeautifulSoup, and user-agent rotation to bypass rate limits. Designed two MongoDB collections - etf_master and etf_holdings - with compound indexes and .explain() query analysis to benchmark COLLSCAN vs IXSCAN performance. Implemented cosine similarity on holdings overlap to surface cheaper, structurally equivalent ETFs. Integrated an LLM to generate plain-English strategy summaries from raw ticker data, making recommendations advisor-ready.",
   },
   {
     title: "Hoftaps",
