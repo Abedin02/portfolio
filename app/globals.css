@@ -86,7 +86,23 @@ input:focus-visible {
     linear-gradient(320deg, rgba(15, 143, 127, .08), transparent 34rem),
     var(--bg);
   color: var(--body);
+  overflow: hidden;
+  position: relative;
   transition: background-color .25s ease, color .25s ease;
+}
+
+.particle-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
 }
 
 .skip-link {
@@ -221,6 +237,49 @@ input:focus-visible {
   transform: translateY(-1px);
 }
 
+.theme-toggle {
+  min-width: 4.4rem;
+  overflow: hidden;
+  padding: .25rem;
+}
+
+.theme-toggle-track {
+  display: block;
+  width: 100%;
+  min-height: 2.2rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e8f1ff, #f7fbff);
+  position: relative;
+  transition: background .35s ease;
+}
+
+.theme-toggle-orb {
+  position: absolute;
+  left: .2rem;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #4338ca;
+  box-shadow: 0 8px 18px rgba(16, 24, 40, .18);
+  transform: translate(0, -50%) rotate(0deg);
+  transition: transform .35s ease, background .35s ease, color .35s ease;
+}
+
+.theme-toggle.is-dark .theme-toggle-track {
+  background: linear-gradient(135deg, #172033, #263648);
+}
+
+.theme-toggle.is-dark .theme-toggle-orb {
+  background: #0b1118;
+  color: #ffd37a;
+  transform: translate(1.85rem, -50%) rotate(180deg);
+}
+
 .menu-button {
   display: none;
 }
@@ -255,6 +314,42 @@ h1,
 h2,
 h3 {
   color: var(--heading);
+}
+
+.aurora-text {
+  display: inline;
+  background:
+    linear-gradient(
+      110deg,
+      var(--heading) 0%,
+      #4338ca 26%,
+      #2563eb 46%,
+      #7c3aed 66%,
+      var(--heading) 88%
+    );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: auroraShift 6s ease-in-out infinite;
+}
+
+.theme-dark .aurora-text {
+  background-image:
+    linear-gradient(
+      110deg,
+      var(--heading) 0%,
+      #a8c8ff 24%,
+      #75a7ff 46%,
+      #c4b5fd 68%,
+      var(--heading) 90%
+    );
+}
+
+@keyframes auroraShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 h1,
@@ -309,6 +404,85 @@ h1 {
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
 }
 
+.button,
+.icon-button,
+.site-nav a,
+.tab-list button,
+.segmented-control button,
+.project-row,
+.accordion-trigger,
+.resume-close,
+.metric-card,
+.skill-chip-card,
+.skill-icon,
+.tag,
+.stack-list span {
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+}
+
+.button::after,
+.icon-button::after,
+.site-nav a::after,
+.tab-list button::after,
+.segmented-control button::after,
+.project-row::after,
+.accordion-trigger::after,
+.resume-close::after,
+.metric-card::after,
+.skill-chip-card::after,
+.skill-icon::after,
+.tag::after,
+.stack-list span::after {
+  content: "";
+  position: absolute;
+  inset: -45%;
+  z-index: 2;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 38%,
+      rgba(255, 255, 255, .12) 44%,
+      rgba(255, 255, 255, .68) 50%,
+      rgba(117, 167, 255, .24) 56%,
+      transparent 64%
+    );
+  opacity: .72;
+  pointer-events: none;
+  transform: translateX(-72%) rotate(8deg);
+  animation: shimmerSweep 3.8s ease-in-out infinite;
+}
+
+.theme-dark .button::after,
+.theme-dark .icon-button::after,
+.theme-dark .site-nav a::after,
+.theme-dark .tab-list button::after,
+.theme-dark .segmented-control button::after,
+.theme-dark .project-row::after,
+.theme-dark .accordion-trigger::after,
+.theme-dark .resume-close::after,
+.theme-dark .metric-card::after,
+.theme-dark .skill-chip-card::after,
+.theme-dark .skill-icon::after,
+.theme-dark .tag::after,
+.theme-dark .stack-list span::after {
+  background:
+    linear-gradient(
+      115deg,
+      transparent 38%,
+      rgba(255, 255, 255, .08) 44%,
+      rgba(168, 200, 255, .48) 50%,
+      rgba(196, 181, 253, .22) 56%,
+      transparent 64%
+    );
+}
+
+@keyframes shimmerSweep {
+  0% { transform: translateX(-72%) rotate(8deg); }
+  44%, 100% { transform: translateX(72%) rotate(8deg); }
+}
+
 .button:hover {
   transform: translateY(-1px);
 }
@@ -345,9 +519,147 @@ h1 {
   box-shadow: var(--shadow-card);
 }
 
+.magic-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+}
+
+.magic-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      280px circle at var(--mouse-x) var(--mouse-y),
+      color-mix(in srgb, var(--accent) 28%, transparent),
+      transparent 58%
+    );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+
+.magic-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.magic-card:hover::before,
+.magic-card:focus-within::before {
+  opacity: 1;
+}
+
+.theme-dark .magic-card::before {
+  background:
+    radial-gradient(
+      280px circle at var(--mouse-x) var(--mouse-y),
+      color-mix(in srgb, var(--accent) 36%, transparent),
+      transparent 60%
+    );
+}
+
 .profile-console {
   border-radius: var(--radius-lg);
+  overflow: hidden;
   padding: clamp(1.25rem, 4vw, 2rem);
+}
+
+.hero-side {
+  display: grid;
+  gap: 1rem;
+}
+
+.orbit-panel {
+  display: grid;
+  place-items: center;
+  min-height: 18rem;
+  overflow: hidden;
+}
+
+.orbit-center {
+  display: grid;
+  place-items: center;
+  width: 4.6rem;
+  height: 4.6rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  border-radius: 999px;
+  background: var(--heading);
+  color: var(--surface);
+  font-size: .82rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  position: relative;
+  z-index: 3;
+}
+
+.orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+}
+
+.orbit-ring-outer {
+  width: 14.5rem;
+  height: 14.5rem;
+  animation: orbitSpin 18s linear infinite;
+}
+
+.orbit-ring-inner {
+  width: 9.5rem;
+  height: 9.5rem;
+  animation: orbitSpinReverse 12s linear infinite;
+}
+
+.orbit-icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-grid;
+  place-items: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--accent-strong);
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  box-shadow: 0 12px 30px rgba(16, 24, 40, .1);
+}
+
+.orbit-ring-outer .orbit-icon:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translateX(7.25rem) rotate(0deg); }
+.orbit-ring-outer .orbit-icon:nth-child(2) { transform: translate(-50%, -50%) rotate(72deg) translateX(7.25rem) rotate(-72deg); }
+.orbit-ring-outer .orbit-icon:nth-child(3) { transform: translate(-50%, -50%) rotate(144deg) translateX(7.25rem) rotate(-144deg); }
+.orbit-ring-outer .orbit-icon:nth-child(4) { transform: translate(-50%, -50%) rotate(216deg) translateX(7.25rem) rotate(-216deg); }
+.orbit-ring-outer .orbit-icon:nth-child(5) { transform: translate(-50%, -50%) rotate(288deg) translateX(7.25rem) rotate(-288deg); }
+
+.orbit-ring-inner .orbit-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: .62rem;
+}
+
+.orbit-ring-inner .orbit-icon:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translateX(4.75rem) rotate(0deg); }
+.orbit-ring-inner .orbit-icon:nth-child(2) { transform: translate(-50%, -50%) rotate(90deg) translateX(4.75rem) rotate(-90deg); }
+.orbit-ring-inner .orbit-icon:nth-child(3) { transform: translate(-50%, -50%) rotate(180deg) translateX(4.75rem) rotate(-180deg); }
+.orbit-ring-inner .orbit-icon:nth-child(4) { transform: translate(-50%, -50%) rotate(270deg) translateX(4.75rem) rotate(-270deg); }
+
+@keyframes orbitSpin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes orbitSpinReverse {
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
 }
 
 .console-top {
@@ -377,6 +689,10 @@ h1 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: .85rem;
+}
+
+.compact-metric-grid {
+  grid-template-columns: 1fr;
 }
 
 .metric-card {
@@ -822,6 +1138,12 @@ h1 {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: .01ms !important;
+  }
+
+  .orbit-ring,
+  .orbit-ring-outer,
+  .orbit-ring-inner {
+    animation: none;
   }
 }
 

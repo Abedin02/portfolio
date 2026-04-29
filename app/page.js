@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Header from "../components/Header";
 import ResumeModal from "../components/ResumeModal";
 
@@ -130,11 +130,113 @@ function Icon({ name }) {
 
 function MetricCard({ value, label, active }) {
   return (
-    <article className={`metric-card ${active ? "is-active" : ""}`}>
+    <article className={`metric-card magic-card ${active ? "is-active" : ""}`}>
       <span className="metric-value">{value}</span>
       <span className="metric-label">{label}</span>
     </article>
   );
+}
+
+function AuroraText({ children }) {
+  return <span className="aurora-text">{children}</span>;
+}
+
+function SkillIcon({ label, name }) {
+  return (
+    <span className="orbit-icon" title={name} aria-label={name}>
+      {label}
+    </span>
+  );
+}
+
+function OrbitingSkills() {
+  return (
+    <section className="orbit-panel magic-card" aria-label="Relevant tools and platforms">
+      <div className="orbit-center">
+        <span>Stack</span>
+      </div>
+      <div className="orbit-ring orbit-ring-outer">
+        <SkillIcon label="GH" name="GitHub" />
+        <SkillIcon label="PY" name="Python" />
+        <SkillIcon label="RX" name="React" />
+        <SkillIcon label="TF" name="TensorFlow" />
+        <SkillIcon label="GC" name="Google Cloud" />
+      </div>
+      <div className="orbit-ring orbit-ring-inner">
+        <SkillIcon label="NX" name="Next.js" />
+        <SkillIcon label="AI" name="Artificial Intelligence" />
+        <SkillIcon label="DB" name="MongoDB and PostgreSQL" />
+        <SkillIcon label="API" name="FastAPI" />
+      </div>
+    </section>
+  );
+}
+
+function ParticleBackground({ darkMode }) {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const context = canvas.getContext("2d");
+    const colors = darkMode
+      ? ["rgba(117, 167, 255, .8)", "rgba(139, 92, 246, .76)"]
+      : ["rgba(67, 56, 202, .48)", "rgba(37, 99, 235, .42)"];
+    let animationFrame;
+    let particles = [];
+
+    function resizeCanvas() {
+      const pixelRatio = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * pixelRatio;
+      canvas.height = window.innerHeight * pixelRatio;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+      const quantity = Math.min(110, Math.max(58, Math.floor(window.innerWidth / 16)));
+      particles = Array.from({ length: quantity }, (_, index) => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        radius: Math.random() * 1.9 + .7,
+        speedX: (Math.random() - .5) * .22,
+        speedY: (Math.random() - .5) * .22,
+        color: colors[index % colors.length],
+      }));
+    }
+
+    function draw() {
+      context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      particles.forEach((particle) => {
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        if (particle.x < -8) particle.x = window.innerWidth + 8;
+        if (particle.x > window.innerWidth + 8) particle.x = -8;
+        if (particle.y < -8) particle.y = window.innerHeight + 8;
+        if (particle.y > window.innerHeight + 8) particle.y = -8;
+
+        context.beginPath();
+        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        context.fillStyle = particle.color;
+        context.fill();
+      });
+
+      animationFrame = requestAnimationFrame(draw);
+    }
+
+    resizeCanvas();
+    draw();
+
+    window.addEventListener("resize", resizeCanvas);
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+      cancelAnimationFrame(animationFrame);
+    };
+  }, [darkMode]);
+
+  return <canvas aria-hidden="true" className="particle-background" ref={canvasRef} />;
 }
 
 function ProjectExplorer() {
@@ -151,14 +253,14 @@ function ProjectExplorer() {
   }, [filter, query]);
 
   return (
-    <section className="section-panel" id="projects">
+    <section className="section-panel magic-card" id="projects">
       <div className="section-heading">
         <p className="eyebrow">Projects</p>
-        <h2>Five projects. Three domains. One consistent standard.</h2>
+        <h2><AuroraText>Five projects. Four domains. One consistent standard.</AuroraText></h2>
       </div>
 
       <div className="project-shell">
-        <div className="command-panel">
+        <div className="command-panel magic-card">
           <label className="search-box">
             <Icon name="search" />
             <span className="sr-only">Search projects</span>
@@ -187,7 +289,7 @@ function ProjectExplorer() {
           <div className="project-list" aria-live="polite">
             {visibleProjects.map((project) => (
               <button
-                className={`project-row ${selected.title === project.title ? "is-active" : ""}`}
+                className={`project-row magic-card ${selected.title === project.title ? "is-active" : ""}`}
                 key={project.title}
                 onClick={() => setSelected(project)}
                 type="button"
@@ -205,9 +307,9 @@ function ProjectExplorer() {
           </div>
         </div>
 
-        <article className="project-detail">
+        <article className="project-detail magic-card">
           <p className="eyebrow">{selected.type}</p>
-          <h3>{selected.title}</h3>
+          <h3><AuroraText>{selected.title}</AuroraText></h3>
           <p>{selected.desc}</p>
           <div className="stack-list">
             {selected.stack.map((item) => (
@@ -225,13 +327,13 @@ function SkillsWorkbench() {
   const activeTools = TOOLS.filter((tool) => tool.group === activeGroup);
 
   return (
-    <section className="section-panel section-grid" id="about">
+    <section className="section-panel section-grid magic-card" id="about">
       <div className="section-heading">
         <p className="eyebrow">Skills Workbench</p>
-        <h2>A practical stack across models, interfaces, APIs, and data pipelines.</h2>
+        <h2><AuroraText>A practical stack across models, interfaces, APIs, and data pipelines.</AuroraText></h2>
       </div>
 
-      <div className="skills-panel">
+      <div className="skills-panel magic-card">
         <div className="tab-list" role="tablist" aria-label="Skill groups">
           {TOOL_GROUPS.map((group) => (
             <button
@@ -249,7 +351,7 @@ function SkillsWorkbench() {
 
         <div className="skill-card-grid">
           {activeTools.map((tool) => (
-            <article className="skill-chip-card" data-group={tool.group} key={tool.name}>
+            <article className="skill-chip-card magic-card" data-group={tool.group} key={tool.name}>
               <span className="skill-icon" aria-hidden="true">{tool.icon}</span>
               <strong>{tool.name}</strong>
             </article>
@@ -264,17 +366,17 @@ function ExperienceAccordion() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="section-panel" id="experience">
+    <section className="section-panel magic-card" id="experience">
       <div className="section-heading compact-heading">
         <p className="eyebrow">Experience</p>
-        <h2>Roles shaped by teaching, coordination, and digital execution.</h2>
+        <h2><AuroraText>Roles shaped by teaching, coordination, and digital execution.</AuroraText></h2>
       </div>
 
       <div className="accordion">
         {EXPERIENCE.map((item, index) => {
           const isOpen = openIndex === index;
           return (
-            <article className={`accordion-item ${isOpen ? "is-open" : ""}`} key={item.title}>
+            <article className={`accordion-item magic-card ${isOpen ? "is-open" : ""}`} key={item.title}>
               <button
                 aria-controls={`experience-${index}`}
                 aria-expanded={isOpen}
@@ -305,8 +407,8 @@ function HonorsStrip() {
   return (
     <section className="honors-strip" aria-label="Leadership and honors">
       {HONORS.map((honor) => (
-        <article key={honor.title}>
-          <h3>{honor.title}</h3>
+        <article className="magic-card" key={honor.title}>
+          <h3><AuroraText>{honor.title}</AuroraText></h3>
           <p>{honor.desc}</p>
         </article>
       ))}
@@ -318,11 +420,25 @@ export default function Home() {
   const [resumeOpen, setResumeOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
+  useEffect(() => {
+    function handlePointerMove(event) {
+      document.querySelectorAll(".magic-card").forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${event.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${event.clientY - rect.top}px`);
+      });
+    }
+
+    window.addEventListener("pointermove", handlePointerMove);
+    return () => window.removeEventListener("pointermove", handlePointerMove);
+  }, []);
+
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
 
       <div className={`page-shell ${darkMode ? "theme-dark" : ""}`}>
+        <ParticleBackground darkMode={darkMode} />
         <Header darkMode={darkMode} onThemeToggle={() => setDarkMode((value) => !value)} />
 
         <main id="main">
@@ -330,7 +446,7 @@ export default function Home() {
             <div className="hero-copy">
               <p className="hero-name">Awab Abedin</p>
               <p className="eyebrow">Computer Science and Artificial Intelligence Student</p>
-              <h1>Full-stack engineer with a focus on applied machine learning.</h1>
+              <h1><AuroraText>Full-stack engineer with a focus on applied machine learning.</AuroraText></h1>
               <p className="hero-text">
                 Computer science and AI student at Hofstra University, shipping machine learning
                 pipelines, full-stack web apps, and data-driven products.
@@ -351,24 +467,27 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="profile-console" aria-label="Portfolio summary">
-              <div className="console-top">
-                <span className="avatar-mark">AA</span>
-                <div>
-                  <p>Currently</p>
-                  <strong>Hofstra University</strong>
+            <div className="hero-side">
+              <aside className="profile-console magic-card" aria-label="Education and key projects">
+                <div className="console-top">
+                  <span className="avatar-mark">AA</span>
+                  <div>
+                    <p>Currently</p>
+                    <strong><AuroraText>Hofstra University</AuroraText></strong>
+                  </div>
                 </div>
-              </div>
-              <p className="console-copy">
-                BS in Computer Science and Artificial Intelligence. Expected graduation: May 2026.
-              </p>
-              <div className="metric-grid">
-                <MetricCard active label="Cumulative GPA" value="3.20" />
-                <MetricCard label="Graduation" value="2026" />
-                <MetricCard label="Key Projects" value="5+" />
-                <MetricCard label="Career Roles" value="3" />
-              </div>
-            </aside>
+                <p className="console-copy">
+                  BS in Computer Science and Artificial Intelligence. Expected graduation: May 2026.
+                </p>
+                <div className="metric-grid">
+                  <MetricCard active label="Cumulative GPA" value="3.20" />
+                  <MetricCard label="Graduation" value="2026" />
+                  <MetricCard label="Key Projects" value="5+" />
+                  <MetricCard label="Career Roles" value="3" />
+                </div>
+              </aside>
+              <OrbitingSkills />
+            </div>
           </section>
 
           <SkillsWorkbench />
@@ -380,7 +499,7 @@ export default function Home() {
         <footer className="site-footer" id="contact">
           <div>
             <p className="eyebrow">Contact</p>
-            <h2>Let us build something useful.</h2>
+            <h2><AuroraText>Let us build something useful.</AuroraText></h2>
           </div>
           <div className="footer-actions">
             <a className="button button-primary" href="mailto:abedinawab1@gmail.com">
