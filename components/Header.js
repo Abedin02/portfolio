@@ -44,12 +44,16 @@ export default function Header({ darkMode, onThemeToggle }) {
 
       <div className="header-actions">
         <button
-          className="icon-button"
+          className={`icon-button theme-toggle ${darkMode ? "is-dark" : ""}`}
           type="button"
           aria-label={darkMode ? "Switch to light theme" : "Switch to dark theme"}
           onClick={onThemeToggle}
         >
-          <Icon name={darkMode ? "sun" : "moon"} />
+          <span className="theme-toggle-track" aria-hidden="true">
+            <span className="theme-toggle-orb">
+              <Icon name={darkMode ? "sun" : "moon"} />
+            </span>
+          </span>
         </button>
         <button
           className="icon-button menu-button"

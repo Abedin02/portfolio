@@ -2,6 +2,10 @@
 
 import { useEffect } from "react";
 
+function AuroraText({ children }) {
+  return <span className="aurora-text">{children}</span>;
+}
+
 export default function ResumeModal({ onClose }) {
   useEffect(() => {
     const handler = (event) => {
@@ -31,7 +35,7 @@ export default function ResumeModal({ onClose }) {
         <div className="resume-modal-top">
           <div>
             <p className="eyebrow">Resume</p>
-            <h2 id="resume-title">Awab Abedin</h2>
+            <h2 id="resume-title"><AuroraText>Awab Abedin</AuroraText></h2>
             <p className="resume-contact">
               Farmingville, New York |{" "}
               <a href="mailto:abedinawab1@gmail.com">abedinawab1@gmail.com</a> |{" "}
@@ -48,7 +52,7 @@ export default function ResumeModal({ onClose }) {
 
         <div className="resume-content">
           <section>
-            <h3>Profile</h3>
+            <h3><AuroraText>Profile</AuroraText></h3>
             <p>
               Computer Science and Artificial Intelligence student focused on applied machine
               learning, full-stack software development, and data-driven product work.
@@ -56,21 +60,21 @@ export default function ResumeModal({ onClose }) {
           </section>
 
           <section>
-            <h3>Education</h3>
+            <h3><AuroraText>Education</AuroraText></h3>
             <p><strong>Hofstra University</strong>, Hempstead, New York</p>
             <p>Bachelor of Science in Computer Science and Artificial Intelligence, expected May 2026</p>
             <p>Cumulative Grade Point Average: 3.20</p>
           </section>
 
           <section>
-            <h3>Experience</h3>
+            <h3><AuroraText>Experience</AuroraText></h3>
             <p><strong>Student Tutor</strong>, Center for Academic Excellence, Hofstra University | September 2023 - Present</p>
             <p><strong>Project Management Intern</strong>, Delivery Hobe, Bangladesh | June 2022 - December 2022</p>
             <p><strong>Branding Intern</strong>, ZSA Interweave, Bangladesh | January 2021 - October 2021</p>
           </section>
 
           <section>
-            <h3>Technical Skills</h3>
+            <h3><AuroraText>Technical Skills</AuroraText></h3>
             <p>
               Python, C and C++, JavaScript, SQL, React, Next.js, FastAPI, TensorFlow, PyTorch,
               OpenCV, MongoDB, PostgreSQL, Git, Google Cloud Platform, and Vercel.
@@ -78,7 +82,7 @@ export default function ResumeModal({ onClose }) {
           </section>
 
           <section>
-            <h3>Selected Projects</h3>
+            <h3><AuroraText>Selected Projects</AuroraText></h3>
             <p><strong>Deep Guard:</strong> Deepfake detection system with image classification and sequential video analysis pipelines.</p>
             <p><strong>ETF Recommender:</strong> Financial data scraping, normalization, analysis, and MongoDB-backed recommendation research.</p>
             <p><strong>Hoftaps:</strong> Peer-to-peer online bookstore for Hofstra students.</p>
