@@ -418,7 +418,7 @@ function HonorsStrip() {
 
 export default function Home() {
   const [resumeOpen, setResumeOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
     function handlePointerMove(event) {
