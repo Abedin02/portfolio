@@ -2,25 +2,37 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Header from "../components/Header";
-import ResumeModal from "../components/ResumeModal";
 
 const TOOLS = [
-  { name: "Python", group: "AI / Data", icon: "PY" },
-  { name: "TensorFlow", group: "AI / Data", icon: "TF" },
-  { name: "PyTorch", group: "AI / Data", icon: "PT" },
-  { name: "OpenCV", group: "AI / Data", icon: "CV" },
-  { name: "Pandas", group: "AI / Data", icon: "PD" },
-  { name: "JavaScript", group: "Frontend", icon: "JS" },
-  { name: "React", group: "Frontend", icon: "RX" },
-  { name: "Next.js", group: "Frontend", icon: "NX" },
-  { name: "CSS", group: "Frontend", icon: "CS" },
-  { name: "FastAPI", group: "Backend", icon: "FA" },
-  { name: "SQL", group: "Backend", icon: "SQ" },
-  { name: "MongoDB", group: "Backend", icon: "MO" },
-  { name: "PostgreSQL", group: "Backend", icon: "PG" },
-  { name: "Git", group: "Workflow", icon: "GT" },
-  { name: "Vercel", group: "Workflow", icon: "VC" },
-  { name: "Google Cloud", group: "Workflow", icon: "GC" },
+  { name: "Python", group: "AI / ML", icon: "PY" },
+  { name: "Machine Learning Algorithms", group: "AI / ML", icon: "ML" },
+  { name: "Deep Learning", group: "AI / ML", icon: "DL" },
+  { name: "NLP", group: "AI / ML", icon: "NL" },
+  { name: "Computer Vision", group: "AI / ML", icon: "CV" },
+  { name: "Pandas", group: "Libraries", icon: "PD" },
+  { name: "NumPy", group: "Libraries", icon: "NP" },
+  { name: "scikit-learn", group: "Libraries", icon: "SK" },
+  { name: "TensorFlow", group: "Libraries", icon: "TF" },
+  { name: "PyTorch", group: "Libraries", icon: "PT" },
+  { name: "OpenCV", group: "Libraries", icon: "OC" },
+  { name: "Matplotlib", group: "Libraries", icon: "MP" },
+  { name: "EDA", group: "Data / Cloud", icon: "ED" },
+  { name: "Feature Engineering", group: "Data / Cloud", icon: "FE" },
+  { name: "SQL", group: "Data / Cloud", icon: "SQ" },
+  { name: "PostgreSQL", group: "Data / Cloud", icon: "PG" },
+  { name: "MongoDB", group: "Data / Cloud", icon: "MO" },
+  { name: "GCP", group: "Data / Cloud", icon: "GC" },
+  { name: "Selenium", group: "Data / Cloud", icon: "SE" },
+  { name: "Beautiful Soup", group: "Data / Cloud", icon: "BS" },
+  { name: "Git", group: "Engineering", icon: "GT" },
+  { name: "GitHub Actions", group: "Engineering", icon: "GA" },
+  { name: "Docker", group: "Engineering", icon: "DK" },
+  { name: "CI/CD Pipelines", group: "Engineering", icon: "CI" },
+  { name: "REST APIs", group: "Engineering", icon: "API" },
+  { name: "FastAPI", group: "Engineering", icon: "FA" },
+  { name: "Flask", group: "Engineering", icon: "FL" },
+  { name: "MLflow", group: "Engineering", icon: "MF" },
+  { name: "JavaScript", group: "Engineering", icon: "JS" },
 ];
 
 const EXPERIENCE = [
@@ -29,64 +41,66 @@ const EXPERIENCE = [
     org: "Center for Academic Excellence, Hofstra University",
     date: "September 2023 - Present",
     kind: "Teaching",
-    desc: "Tutor students in Python, C++, and Java while breaking down algorithms, debugging patterns, and core programming concepts into clear, teachable steps.",
+    desc: "Tutored students in Python, C++, and Java, strengthening debugging, algorithmic thinking, and technical communication. Broke down programming concepts into clear steps and prepared students for exams using structured problem-solving methods.",
   },
   {
     title: "Project Management Intern",
     org: "Delivery Hobe, Bangladesh",
     date: "June 2022 - December 2022",
     kind: "Operations",
-    desc: "Coordinated three product launches, ran stand-ups, tracked blockers, and supported 1,000 voice-order confirmations during the first month of rollout.",
+    desc: "Coordinated three product launches across customer service, voice ordering, and website beta testing teams. Led stand-ups, tracked blockers, gathered user feedback, and supported 1,000 voice-order confirmations in the first month.",
   },
   {
     title: "Branding Intern",
     org: "ZSA Interweave, Bangladesh",
     date: "January 2021 - October 2021",
     kind: "Web",
-    desc: "Built a Next.js company website, secured Google verification, and contributed to measurable growth in digital reach and audience engagement.",
+    desc: "Built a Next.js company website and secured Google verification to improve web presence and discoverability. Analyzed audience behavior and campaign performance to help reach 50,000 people and drive 20,000 interactions.",
   },
 ];
 
 const PROJECTS = [
   {
-    title: "Deep Guard",
+    title: "DeepGuard",
     type: "AI",
-    stack: ["Python", "TensorFlow", "OpenCV"],
-    impact: "Dual image and video analysis pipelines",
-    desc: "Designed a deepfake detection system with ensemble CNNs for image classification and an EfficientNet + LSTM model for sequential video analysis.",
+    stack: ["Python", "Xception", "ResNet", "EfficientNet", "LSTM"],
+    impact: "93% precision on deepfake image detection",
+    desc: "Engineered an end-to-end multimodal deep learning pipeline achieving 93% precision on deepfake image detection, using an ensemble of Xception, ResNet, and EfficientNet CNNs alongside a custom EfficientNet + LSTM architecture for temporal video analysis. Standardized preprocessing, classification testing, and performance tracking workflows for reproducible image and video evaluation.",
   },
   {
     title: "ETF Recommender",
     type: "Data",
     stack: [
-      "Selenium",
       "BeautifulSoup",
+      "Selenium",
+      "Pandas",
       "MongoDB",
-      "GenAI",
+      "Gemini 2.5",
+      "Sentence Transformers",
     ],
-    impact: "Normalized scraped market data",
-    desc: "Built a full ETF recommendation engine for a Charles Schwab simulation. Scraped 3,000+ ETFs from Finviz and StockAnalysis using Selenium, BeautifulSoup, and user-agent rotation to bypass rate limits. Designed two MongoDB collections - etf_master and etf_holdings - with compound indexes and .explain() query analysis to benchmark COLLSCAN vs IXSCAN performance. Implemented cosine similarity on holdings overlap to surface cheaper, structurally equivalent ETFs. Integrated an LLM to generate plain-English strategy summaries from raw ticker data, making recommendations advisor-ready.",
+    impact: "2,300+ normalized ETF records",
+    desc: "Architected a multi-source ETF data pipeline by scraping and ingesting financial data from iShares and StockAnalysis, cleaning and normalizing 2,300+ ETF records with Pandas, and persisting structured holdings data to MongoDB with compound indexing. Engineered Gemini 2.5 prompts for plain-English investment strategy summaries and built a semantic ETF similarity recommender with Sentence Transformers and cosine similarity scoring.",
   },
   {
     title: "Hoftaps",
     type: "Web",
     stack: ["HTML", "JavaScript", "CSS", "Firebase"],
     impact: "Peer-to-peer textbook marketplace",
-    desc: "Built with vanilla JavaScript, Firebase Authentication, and Firestore. Handles real-time listing updates, user session management, and client-side routing without any frontend framework.",
+    desc: "Built a deployable full-stack web application for a working peer-to-peer bookstore by connecting JavaScript, HTML, CSS, and Firebase data workflows for listings and user interactions.",
   },
   {
     title: "Classification Analysis",
     type: "AI",
-    stack: ["Python", "scikit-learn", "Matplotlib"],
-    impact: "Model behavior comparison",
-    desc: "Compared Perceptron, Logistic Regression, and Decision Tree models with ROC-AUC, loss curves, accuracy scoring, and decision boundary plots.",
+    stack: ["Python", "scikit-learn", "XGBoost", "KNN", "SVM"],
+    impact: "99.98% binary recall",
+    desc: "Built machine learning classification pipelines for phishing URL detection and student performance prediction, achieving 99.98% binary recall and 70.3% multiclass recall using Logistic Regression, Random Forest, XGBoost, KNN, and SVM. Improved evaluation reliability with EDA, feature engineering, manual hyperparameter tuning, F1/ROC-AUC analysis, K-fold cross validation, and overfitting comparison.",
   },
   {
     title: "RoboPathFinder",
     type: "Systems",
     stack: ["C", "Algorithms"],
     impact: "Autonomous pathfinding logic",
-    desc: "Programmed an autonomous robot control system in C with low-level pathfinding logic and efficient decision flow.",
+    desc: "Improved autonomous decision logic with repeatable robot pathfinding behavior by programming low-level control flow and navigation rules in C.",
   },
 ];
 
@@ -106,7 +120,7 @@ const HONORS = [
 ];
 
 const FILTERS = ["All", "AI", "Data", "Web", "Systems"];
-const TOOL_GROUPS = ["AI / Data", "Frontend", "Backend", "Workflow"];
+const TOOL_GROUPS = ["AI / ML", "Libraries", "Data / Cloud", "Engineering"];
 
 function Icon({ name }) {
   const paths = {
@@ -125,15 +139,6 @@ function Icon({ name }) {
     <svg aria-hidden="true" className="icon" fill="none" viewBox="0 0 24 24">
       <path d={paths[name]} stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
     </svg>
-  );
-}
-
-function MetricCard({ value, label, active }) {
-  return (
-    <article className={`metric-card magic-card ${active ? "is-active" : ""}`}>
-      <span className="metric-value">{value}</span>
-      <span className="metric-label">{label}</span>
-    </article>
   );
 }
 
@@ -323,14 +328,14 @@ function ProjectExplorer() {
 }
 
 function SkillsWorkbench() {
-  const [activeGroup, setActiveGroup] = useState("AI / Data");
+  const [activeGroup, setActiveGroup] = useState("AI / ML");
   const activeTools = TOOLS.filter((tool) => tool.group === activeGroup);
 
   return (
     <section className="section-panel section-grid magic-card" id="about">
       <div className="section-heading">
         <p className="eyebrow">Skills Workbench</p>
-        <h2><AuroraText>A practical stack across models, interfaces, APIs, and data pipelines.</AuroraText></h2>
+        <h2><AuroraText>AI, data, cloud, and engineering tools.</AuroraText></h2>
       </div>
 
       <div className="skills-panel magic-card">
@@ -368,8 +373,8 @@ function ExperienceAccordion() {
   return (
     <section className="section-panel magic-card" id="experience">
       <div className="section-heading compact-heading">
-        <p className="eyebrow">Experience</p>
-        <h2><AuroraText>Roles shaped by teaching, coordination, and digital execution.</AuroraText></h2>
+        <p className="eyebrow">Work Experience</p>
+        <h2><AuroraText>Teaching, launch coordination, and web execution.</AuroraText></h2>
       </div>
 
       <div className="accordion">
@@ -417,7 +422,6 @@ function HonorsStrip() {
 }
 
 export default function Home() {
-  const [resumeOpen, setResumeOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
@@ -445,11 +449,10 @@ export default function Home() {
           <section className="hero-section" id="top">
             <div className="hero-copy">
               <p className="hero-name">Awab Abedin</p>
-              <p className="eyebrow">Computer Science and Artificial Intelligence Student</p>
-              <h1><AuroraText>Full-stack engineer with a focus on applied machine learning.</AuroraText></h1>
+              <h1><AuroraText>Full-stack engineer focused on applied machine learning.</AuroraText></h1>
               <p className="hero-text">
-                Computer science and AI student at Hofstra University, shipping machine learning
-                pipelines, full-stack web apps, and data-driven products.
+                AI/ML and software engineering graduate building production-minded machine learning
+                pipelines, full-stack applications, and data systems with measurable outcomes.
               </p>
 
               <div className="hero-actions">
@@ -457,10 +460,10 @@ export default function Home() {
                   <Icon name="mail" />
                   Email Awab
                 </a>
-                <button className="button button-secondary" onClick={() => setResumeOpen(true)} type="button">
-                  View Resume
+                <a className="button button-secondary" href="/Awab_Abedin_Resume.pdf" target="_blank" rel="noreferrer">
+                  Resume
                   <Icon name="arrow" />
-                </button>
+                </a>
                 <a className="icon-button" href="https://github.com/Abedin02" target="_blank" rel="noreferrer" aria-label="Open GitHub profile">
                   <Icon name="github" />
                 </a>
@@ -468,24 +471,6 @@ export default function Home() {
             </div>
 
             <div className="hero-side">
-              <aside className="profile-console magic-card" aria-label="Education and key projects">
-                <div className="console-top">
-                  <span className="avatar-mark">AA</span>
-                  <div>
-                    <p>Currently</p>
-                    <strong><AuroraText>Hofstra University</AuroraText></strong>
-                  </div>
-                </div>
-                <p className="console-copy">
-                  BS in Computer Science and Artificial Intelligence. Expected graduation: May 2026.
-                </p>
-                <div className="metric-grid">
-                  <MetricCard active label="Cumulative GPA" value="3.20" />
-                  <MetricCard label="Graduation" value="2026" />
-                  <MetricCard label="Key Projects" value="5+" />
-                  <MetricCard label="Career Roles" value="3" />
-                </div>
-              </aside>
               <OrbitingSkills />
             </div>
           </section>
@@ -497,10 +482,11 @@ export default function Home() {
         </main>
 
         <footer className="site-footer" id="contact">
-          <div>
-            <p className="eyebrow">Contact</p>
-            <h2><AuroraText>Let us build something useful.</AuroraText></h2>
-          </div>
+          <p className="eyebrow footer-eyebrow">Contact</p>
+          <h2 className="footer-headline">
+            <span><AuroraText>The gap between AI research and production</AuroraText></span>
+            <span><AuroraText>is where I work.</AuroraText></span>
+          </h2>
           <div className="footer-actions">
             <a className="button button-primary" href="mailto:abedinawab1@gmail.com">
               <Icon name="mail" />
@@ -512,8 +498,6 @@ export default function Home() {
           </div>
         </footer>
       </div>
-
-      {resumeOpen && <ResumeModal onClose={() => setResumeOpen(false)} />}
     </>
   );
 }

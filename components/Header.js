@@ -19,7 +19,7 @@ function Icon({ name }) {
 
 const LINKS = [
   { href: "#about", label: "Skills" },
-  { href: "#experience", label: "Experience" },
+  { href: "#experience", label: "Work Experience" },
   { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
 ];

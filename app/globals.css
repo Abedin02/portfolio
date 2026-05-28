@@ -294,8 +294,8 @@ main,
 
 .hero-section {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
-  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 360px);
+  gap: clamp(1.5rem, 4vw, 4rem);
   align-items: center;
   min-height: calc(100dvh - 4.5rem);
   padding: clamp(3rem, 7vw, 6rem) 0 clamp(2rem, 5vw, 4rem);
@@ -359,9 +359,9 @@ h2 {
 }
 
 h1 {
-  max-width: 11ch;
-  font-size: clamp(3rem, 8vw, 6.4rem);
-  line-height: .95;
+  max-width: 13.8em;
+  font-size: clamp(2.7rem, 5.9vw, 5.2rem);
+  line-height: 1.06;
 }
 
 .hero-text {
@@ -733,23 +733,22 @@ h1 {
 }
 
 .section-grid {
-  display: grid;
-  grid-template-columns: minmax(220px, 340px) 1fr;
-  gap: clamp(1.5rem, 4vw, 3rem);
+  display: block;
 }
 
 .section-heading h2 {
-  max-width: 15ch;
+  max-width: 24em;
   font-size: clamp(1.8rem, 4vw, 3rem);
-  line-height: 1.04;
+  line-height: 1.08;
 }
 
 .compact-heading h2 {
-  max-width: 21ch;
+  max-width: 24em;
 }
 
 .skills-panel {
   border-radius: var(--radius);
+  margin-top: 1.5rem;
   padding: 1rem;
 }
 
@@ -815,22 +814,22 @@ h1 {
   letter-spacing: 0;
 }
 
-.skill-chip-card[data-group="AI / Data"] .skill-icon {
+.skill-chip-card[data-group="AI / ML"] .skill-icon {
   background: var(--accent-soft);
   color: var(--accent-strong);
 }
 
-.skill-chip-card[data-group="Frontend"] .skill-icon {
+.skill-chip-card[data-group="Libraries"] .skill-icon {
   background: #f1edff;
   color: #6d28d9;
 }
 
-.skill-chip-card[data-group="Backend"] .skill-icon {
+.skill-chip-card[data-group="Data / Cloud"] .skill-icon {
   background: #eaf2ff;
   color: #1d4ed8;
 }
 
-.skill-chip-card[data-group="Workflow"] .skill-icon {
+.skill-chip-card[data-group="Engineering"] .skill-icon {
   background: #f3f4f6;
   color: #374151;
 }
@@ -1031,16 +1030,38 @@ h1 {
 }
 
 .site-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: clamp(1.5rem, 5vw, 4rem);
+  row-gap: .75rem;
+  align-items: start;
   margin-top: 1rem;
   padding: clamp(1.5rem, 4vw, 2.5rem) 0 clamp(2rem, 5vw, 4rem);
 }
 
-.site-footer h2 {
+.footer-eyebrow {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+.footer-headline {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(2.9rem, auto));
+  align-items: center;
   font-size: clamp(1.7rem, 3vw, 2.5rem);
+  line-height: 1.08;
+}
+
+.footer-headline span {
+  display: block;
+}
+
+.footer-actions {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(2.9rem, auto));
+  gap: .35rem;
+  align-items: center;
+  justify-items: start;
 }
 
 .resume-overlay {
@@ -1156,7 +1177,7 @@ h1 {
   }
 
   h1 {
-    max-width: 12ch;
+    max-width: 13.8em;
   }
 
   .project-detail {
@@ -1223,7 +1244,12 @@ h1 {
 
   .site-footer {
     align-items: flex-start;
-    flex-direction: column;
+    grid-template-columns: 1fr;
+  }
+
+  .footer-headline,
+  .footer-actions {
+    grid-template-rows: none;
   }
 }
 
